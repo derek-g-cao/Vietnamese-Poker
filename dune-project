@@ -1,6 +1,6 @@
 (lang dune 3.7)
 
-(name final)
+(name Game)
 
 (generate_opam_files true)
 
@@ -16,7 +16,7 @@
 (documentation https://url/to/documentation)
 
 (package
- (name final)
+ (name Game)
  (synopsis "A short synopsis")
  (description "A longer description")
  (depends ocaml dune)
