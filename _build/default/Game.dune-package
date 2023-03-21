@@ -24,7 +24,13 @@
    game__Deck.cmt
    game__Deck.cmti
    game__Deck.cmx
-   opam))
+   game__Player.cmi
+   game__Player.cmt
+   game__Player.cmti
+   game__Player.cmx
+   opam
+   player.ml
+   player.mli))
  (libexec (game.cmxs))
  (bin (main))
  (doc (README.md)))
@@ -54,5 +60,9 @@
      (module
       (obj_name game__Deck)
       (visibility public)
-      (source (path Deck) (intf (path deck.mli)) (impl (path deck.ml))))))
+      (source (path Deck) (intf (path deck.mli)) (impl (path deck.ml))))
+     (module
+      (obj_name game__Player)
+      (visibility public)
+      (source (path Player) (intf (path player.mli)) (impl (path player.ml))))))
    (wrapped true))))

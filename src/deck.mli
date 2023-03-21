@@ -2,7 +2,7 @@ type deck
 (** The type representing a deck of cards *)
 
 val clean_deck : deck
-(** Represents an unshuffled deck *)
+(** Represents an unshuffled standard deck of 52 cards *)
 
 val get_cards : deck -> Card.t list
 (** [get_cards a] takes in a deck [a] and returns the cards that are in the deck *)

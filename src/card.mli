@@ -29,9 +29,28 @@ val card_suit : t -> suit
 val card_rank : t -> rank
 (** [card_rank a] is the identifier of the card rank for card [a] *)
 
+exception Invalid of string
+(** Raised when an invalid suit or rank for a card is given *)
+
 val create_card : rank -> suit -> t
 (** [create_card a b] creates a card with rank [a] and suit [b] *)
 
 val create_rank_set : rank -> t list
 (** [create_rank_set a] creates a list of 4 cards with rank [a] and different
-    suits*)
+    suits *)
+
+val suit_string : suit -> string
+(** [suit_string a] takes in a suit [a] and gives a shortened string
+    representation of it *)
+
+val rank_string : rank -> string
+(** [rank_string a] takes in a suit [a] and gives a shortened string
+    representation of it *)
+
+val card_string : t -> string
+(** [card_string a] takes in a card [a] and gives a shortened string
+    representation of it *)
+
+val string_to_card : string -> t
+(** [string_to_card a] takes in a string [a] (shortened string representation)
+    and turns it into a card representation *)

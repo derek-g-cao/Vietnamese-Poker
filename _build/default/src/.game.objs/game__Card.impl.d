@@ -1,1 +1,1 @@
-src/card.ml:
+src/card.ml: Char String
