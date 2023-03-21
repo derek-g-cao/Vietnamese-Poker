@@ -5,12 +5,11 @@ type player
 type move =
   | Play of Card.t list
   | Pass
+  | Show
+  | Count
 
-exception Empty
-(** Raised when an empty player move is parsed *)
-
-exception Malformed of string
-(** Raised when a player move is malformed *)
+exception Invalid
+(** Raised when a player move is invalid *)
 
 val player_hand : player -> Card.t list
 (** [player_hand a] takes in a player [a] and returns that player's hand *)

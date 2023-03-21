@@ -10,6 +10,6 @@ val get_cards : deck -> Card.t list
 val shuffle : deck -> deck
 (** [shuffle a] takes in a deck [a] and returns a shuffled version of it *)
 
-val deal : deck -> int -> Card.t list array
+val deal : deck -> int -> int -> Card.t list array
 (** [deal a b] takes in a deck [a] and deals its cards to [b] players by
     creating [b] lists of cards *)

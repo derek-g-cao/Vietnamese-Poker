@@ -89,7 +89,14 @@ let string_to_rank str =
   | _ -> raise (Invalid str)
 
 let string_to_card str =
-  {
-    suit = string_to_suit (Char.escaped str.[1]);
-    rank = string_to_rank (Char.escaped str.[0]);
-  }
+  if String.length str = 2 then
+    {
+      suit = string_to_suit (Char.escaped str.[1]);
+      rank = string_to_rank (Char.escaped str.[0]);
+    }
+  else if String.length str = 3 then
+    {
+      suit = string_to_suit (Char.escaped str.[2]);
+      rank = string_to_rank (String.sub str 0 2);
+    }
+  else raise (Invalid str)
