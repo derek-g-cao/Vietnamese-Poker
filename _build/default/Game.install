@@ -2,6 +2,8 @@ lib: [
   "_build/install/default/lib/Game/META"
   "_build/install/default/lib/Game/card.ml"
   "_build/install/default/lib/Game/card.mli"
+  "_build/install/default/lib/Game/deck.ml"
+  "_build/install/default/lib/Game/deck.mli"
   "_build/install/default/lib/Game/dune-package"
   "_build/install/default/lib/Game/game.a"
   "_build/install/default/lib/Game/game.cma"
@@ -14,6 +16,10 @@ lib: [
   "_build/install/default/lib/Game/game__Card.cmt"
   "_build/install/default/lib/Game/game__Card.cmti"
   "_build/install/default/lib/Game/game__Card.cmx"
+  "_build/install/default/lib/Game/game__Deck.cmi"
+  "_build/install/default/lib/Game/game__Deck.cmt"
+  "_build/install/default/lib/Game/game__Deck.cmti"
+  "_build/install/default/lib/Game/game__Deck.cmx"
   "_build/install/default/lib/Game/opam"
 ]
 libexec: [

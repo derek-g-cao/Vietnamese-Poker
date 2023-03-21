@@ -6,6 +6,8 @@
   (META
    card.ml
    card.mli
+   deck.ml
+   deck.mli
    dune-package
    game.a
    game.cma
@@ -18,6 +20,10 @@
    game__Card.cmt
    game__Card.cmti
    game__Card.cmx
+   game__Deck.cmi
+   game__Deck.cmt
+   game__Deck.cmti
+   game__Deck.cmx
    opam))
  (libexec (game.cmxs))
  (bin (main))
@@ -44,5 +50,9 @@
      (module
       (obj_name game__Card)
       (visibility public)
-      (source (path Card) (intf (path card.mli)) (impl (path card.ml))))))
+      (source (path Card) (intf (path card.mli)) (impl (path card.ml))))
+     (module
+      (obj_name game__Deck)
+      (visibility public)
+      (source (path Deck) (intf (path deck.mli)) (impl (path deck.ml))))))
    (wrapped true))))

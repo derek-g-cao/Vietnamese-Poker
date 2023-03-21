@@ -2,3 +2,6 @@
 
 (** @canonical Game.Card *)
 module Card = Game__Card
+
+(** @canonical Game.Deck *)
+module Deck = Game__Deck
