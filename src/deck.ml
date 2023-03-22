@@ -29,10 +29,12 @@ let rec deal_helper deck player players cards count dealt =
   match deck with
   | [] -> dealt
   | h :: t ->
-      Array.set dealt player (h :: dealt.(player));
-      if player < players - 1 then
-        deal_helper t (player + 1) cards count players dealt
-      else deal_helper t 0 cards (count + 1) players dealt
+      if cards = count then dealt
+      else (
+        Array.set dealt player (h :: dealt.(player));
+        if player < players - 1 then
+          deal_helper t (player + 1) cards count players dealt
+        else deal_helper t 0 cards (count + 1) players dealt)
 
 let deal deck players cards =
   deal_helper deck.cards 0 players cards 0 (Array.make players [])
