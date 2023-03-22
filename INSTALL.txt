@@ -1,0 +1,8 @@
+Follow these instructions on how to run and install our system. Commands are run
+in terminal.
+
+Necessary packages: ANSITerminal
+opam install ANSITerminal
+
+To run:
+make play
