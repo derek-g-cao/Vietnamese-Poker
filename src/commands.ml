@@ -1,3 +1,3 @@
 type command =
-  | Deck
-  | Shuffle
+  |Start of int
+  |Quit

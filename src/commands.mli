@@ -1,3 +1,0 @@
-type command =
-  | Deck
-  | Shuffle

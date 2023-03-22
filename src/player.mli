@@ -22,6 +22,10 @@ val has_won : player -> bool
 (** [has_won a] takes in a player [a] and returns if that player has already
     played all their cards *)
 
+val make_player : Card.t list -> bool -> bool-> player
+(** [make_player lst a b] takes in cards [lst] and booleans [a] and [b] to create a player with 
+    those cards and booleans *)
+
 val parse_move : string -> move
 (** [parse_move a] takes in a player's input string as [a] and turns it into a
     valid move *)

@@ -35,6 +35,7 @@ let rec deal_helper deck player players cards count dealt =
         if player < players - 1 then
           deal_helper t (player + 1) cards count players dealt
         else deal_helper t 0 cards (count + 1) players dealt)
-
+let make_deck lst=
+{cards=lst}
 let deal deck players cards =
   deal_helper deck.cards 0 players cards 0 (Array.make players [])
