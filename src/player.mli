@@ -26,6 +26,10 @@ val make_player : Card.t list -> bool -> bool-> player
 (** [make_player lst a b] takes in cards [lst] and booleans [a] and [b] to create a player with 
     those cards and booleans *)
 
+val show_hand : Card.t list -> string
+(** [show_hand lst] takes in cards and returns a string representation of those cards in order *)
+
 val parse_move : string -> move
 (** [parse_move a] takes in a player's input string as [a] and turns it into a
     valid move *)
+
