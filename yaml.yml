@@ -1,0 +1,31 @@
+---
+# Members of your group.
+group:
+  - name: Derek Cao
+    netid: dgc68
+  - name: Michael Le
+    netid: mpl82
+  - name: Eileen Liang
+    netid: el596
+# Your PM.
+pm:
+  name: Allen Chen
+  netid: ac2324
+# Set to false if you don't want your gallery entry to be public.
+publish: false
+# Pithy title
+title: "Vietnamese Poker"
+# OK if this is a Cornell Github link, but public gallery viewers won't be able to see it.
+git-repo: "https://github.coecis.cornell.edu/dgc68/cs3110-final-project"
+# If you have no demo screencast, replace the url string with an empty string ""
+demo-video-url: ""
+# Write a short, attention-grabbing description of your project.
+desc: >
+  Our peoject lets people play Vietnamese poker. 4 players will be able to play
+  Vietnamese poker across multiple computers, letting them keep their own hands 
+  hidden. The interface allows players to see only a limited number of cards 
+  that were played last at a time. Players will be able to see only their own 
+  hand and can sort and play their cards however they want. Discrete turns will 
+  be taken with a timer that is determined when the lobby is created. A betting 
+  system with fake currency will be implemented with a money pot where winning 
+  1st and 2nd place and “countering 2’s” will win money.
