@@ -41,6 +41,8 @@ let rec play_game (players : player array) (current : int) =
         | Count ->
             count_number players;
             play_game players current
+        | Quit -> print_endline ("exiting the game. Thanks for playing nerdy nerd nerd");
+          Stdlib.exit 0
       with Invalid ->
         print_endline "That command was invalid";
         play_game players current)
@@ -49,7 +51,7 @@ let start_game_helper (n : int) (deck : Deck.deck) : player array =
   let x = Array.make n (Player.make_player [] false false) in
   let y = Deck.deal deck n (n / 13) in
   x.(0) <- make_player y.(0) true false;
-  for i = 1 to n do
+  for i = 1 to n-1 do
     x.(i) <- make_player y.(i) false false
   done;
   x
@@ -64,6 +66,7 @@ let rec start_game (str : string) =
       | h :: t ->
           print_endline ("The odd card out is " ^ card_string h);
           play_game (start_game_helper n (make_deck t)) 0
+      else play_game (start_game_helper n (Deck.shuffle clean_deck)) 0
   with Failure e -> (
     print_endline
       ("That was an invalid int" ^ e

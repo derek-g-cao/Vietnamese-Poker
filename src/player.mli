@@ -7,6 +7,7 @@ type move =
   | Pass
   | Show
   | Count
+  | Quit
 
 exception Invalid
 (** Raised when a player move is invalid *)

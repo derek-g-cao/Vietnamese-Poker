@@ -11,6 +11,7 @@ type move =
   | Pass
   | Show
   | Count
+  | Quit
 
 let player_hand player = player.hand
 let in_round player = player.opted_in
@@ -41,6 +42,7 @@ let rec command_type player_input =
       else if h = "pass" then Pass
       else if h = "show" then Show
       else if h = "count" then Count
+      else if h= "quit" then Quit
       else raise Invalid
 
 let check_valid move =
@@ -48,9 +50,11 @@ let check_valid move =
   | Pass -> Pass
   | Show -> Show
   | Count -> Count
+  | Quit -> Quit
   | Play s -> (
       match s with
       | [] -> raise Invalid
       | _ -> Play s)
+  
 
 let parse_move str = String.split_on_char ' ' str |> command_type |> check_valid
