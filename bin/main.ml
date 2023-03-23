@@ -1,6 +1,6 @@
 open Game
-open Card
 open Deck
+open Card
 open Player
 
 let rec remove_cards (lst1 : 'a list) (lst2 : 'a list) : 'a list =
