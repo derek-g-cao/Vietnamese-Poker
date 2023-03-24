@@ -25,17 +25,18 @@ let shuffle deck =
   let sond = List.sort compare nd in
   { cards = List.map snd sond }
 
-let rec deal_helper deck player players cards count dealt =
+let rec deal_helper deck player players dealt =
   match deck with
   | [] -> dealt
   | h :: t ->
-      if cards = count then dealt
-      else (
         Array.set dealt player (h :: dealt.(player));
-        if player < players - 1 then
-          deal_helper t (player + 1) cards count players dealt
-        else deal_helper t 0 cards (count + 1) players dealt)
+        if player < players -1 then
+          deal_helper t (player + 1)  players dealt
+        else 
+          if players=2 && (List.length dealt.(player))=13 then dealt
+          else
+          deal_helper t 0  players dealt
 let make_deck lst=
 {cards=lst}
-let deal deck players cards =
-  deal_helper deck.cards 0 players cards 0 (Array.make players [])
+let deal deck players  =
+  deal_helper deck.cards 0 players (Array.make players [])

@@ -5,7 +5,7 @@ open Player
 
 let rec remove_cards (lst1 : 'a list) (lst2 : 'a list) : 'a list =
   match lst2 with
-  | [] -> []
+  | []->[]
   | h :: t -> remove_cards (List.filter (fun x -> x <> h) lst1) t
 
 let count_number players =
@@ -18,7 +18,7 @@ let count_number players =
 
 let rec play_game (players : player array) (current : int) =
   print_endline
-    ("Player " ^ string_of_int (current + 1) ^ "Please enter a valid command ");
+    ("Player " ^ string_of_int (current + 1) ^ " Please enter a valid command ");
   print_string "> ";
   match read_line () with
   | exception End_of_file -> ()
@@ -28,7 +28,8 @@ let rec play_game (players : player array) (current : int) =
         | Play a ->
             let h = remove_cards (player_hand players.(current)) a in
             players.(current) <-
-              make_player h true (if List.length h = 0 then true else false)
+              make_player h true (if List.length h = 0 then true else false);
+          play_game players (current +1)
         | Pass ->
             players.(current) <-
               make_player (player_hand players.(current)) false false;
@@ -49,7 +50,7 @@ let rec play_game (players : player array) (current : int) =
 
 let start_game_helper (n : int) (deck : Deck.deck) : player array =
   let x = Array.make n (Player.make_player [] false false) in
-  let y = Deck.deal deck n (n / 13) in
+  let y = Deck.deal deck n in
   x.(0) <- make_player y.(0) true false;
   for i = 1 to n-1 do
     x.(i) <- make_player y.(i) false false
@@ -78,7 +79,12 @@ let rec start_game (str : string) =
     | int -> start_game int)
 
 let main () =
-  ANSITerminal.print_string [ ANSITerminal.red ] "\n\nWelcome to \n";
+  let y = deal (shuffle clean_deck) (2) in 
+  let x= make_player (y.(0)) (false) (false) in
+  print_endline (Player.show_hand (player_hand x));
+
+  ANSITerminal.print_string [ ANSITerminal.red ] "\n\nWelcome to Vietnamese Poker \n";
+
   print_endline
     "Please enter the number of players (2-4) you want to start a game with\n";
   print_string "> ";
