@@ -8,6 +8,7 @@ type suit =
   | Hearts
   | Diamonds
 
+(** The type [rank] represents the rank of a card *)
 type rank =
   | Ace
   | King

@@ -5,7 +5,7 @@ open Player
 
 let rec remove_cards (lst1 : 'a list) (lst2 : 'a list) : 'a list =
   match lst2 with
-  | []->[]
+  | [] -> []
   | h :: t -> remove_cards (List.filter (fun x -> x <> h) lst1) t
 
 let count_number players =
@@ -29,7 +29,7 @@ let rec play_game (players : player array) (current : int) =
             let h = remove_cards (player_hand players.(current)) a in
             players.(current) <-
               make_player h true (if List.length h = 0 then true else false);
-          play_game players (current +1)
+            play_game players (current + 1)
         | Pass ->
             players.(current) <-
               make_player (player_hand players.(current)) false false;
@@ -42,8 +42,9 @@ let rec play_game (players : player array) (current : int) =
         | Count ->
             count_number players;
             play_game players current
-        | Quit -> print_endline ("exiting the game. Thanks for playing nerdy nerd nerd");
-          Stdlib.exit 0
+        | Quit ->
+            print_endline "exiting the game. Thanks for playing nerdy nerd nerd";
+            Stdlib.exit 0
       with Invalid ->
         print_endline "That command was invalid";
         play_game players current)
@@ -52,7 +53,7 @@ let start_game_helper (n : int) (deck : Deck.deck) : player array =
   let x = Array.make n (Player.make_player [] false false) in
   let y = Deck.deal deck n in
   x.(0) <- make_player y.(0) true false;
-  for i = 1 to n-1 do
+  for i = 1 to n - 1 do
     x.(i) <- make_player y.(i) false false
   done;
   x
@@ -60,14 +61,14 @@ let start_game_helper (n : int) (deck : Deck.deck) : player array =
 let rec start_game (str : string) =
   try
     let n = int_of_string str in
-    if n = 3 then
+    if n = 3 then (
       let s = Deck.shuffle clean_deck in
       match Deck.get_cards s with
       | [] -> print_endline ""
       | h :: t ->
           print_endline ("The odd card out is " ^ card_string h);
-          play_game (start_game_helper n (make_deck t)) 0
-      else play_game (start_game_helper n (Deck.shuffle clean_deck)) 0
+          play_game (start_game_helper n (make_deck t)) 0)
+    else play_game (start_game_helper n (Deck.shuffle clean_deck)) 0
   with Failure e -> (
     print_endline
       ("That was an invalid int" ^ e
@@ -79,11 +80,12 @@ let rec start_game (str : string) =
     | int -> start_game int)
 
 let main () =
-  let y = deal (shuffle clean_deck) (2) in 
-  let x= make_player (y.(0)) (false) (false) in
+  let y = deal (shuffle clean_deck) 2 in
+  let x = make_player y.(0) false false in
   print_endline (Player.show_hand (player_hand x));
 
-  ANSITerminal.print_string [ ANSITerminal.red ] "\n\nWelcome to Vietnamese Poker \n";
+  ANSITerminal.print_string [ ANSITerminal.red ]
+    "\n\nWelcome to Vietnamese Poker \n";
 
   print_endline
     "Please enter the number of players (2-4) you want to start a game with\n";
