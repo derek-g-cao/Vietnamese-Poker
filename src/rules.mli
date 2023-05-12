@@ -1,4 +1,4 @@
-type combo =
+type t =
   | Empty
   | Single of Card.t
   | Pair of Card.t
@@ -22,12 +22,12 @@ val compare : Card.t -> Card.t -> int
     If c1 > c2 compare will return a positive integer, if c1 < c2 compare will
     return a negative integer, and if they are equal compare will return zero *)
 
-val make_combo : Card.t list -> combo
+val make_combo : Card.t list -> t
 (** [make_combo c] takes a list of cards [c] and turns it into its corresponding
     combo. If [c] does not represent a valid combo an InvalidCombo exception is
     thrown. *)
 
-val valid_play : combo -> combo -> bool
+val valid_play : t -> t -> bool
 (** [valid_play c1 c2] takes combo [c2] that the player is attempting to play
     and returns a boolean value true if it is a valid play considering combo
     [c1] is currently on the board *)

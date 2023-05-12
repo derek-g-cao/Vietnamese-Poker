@@ -1,4 +1,4 @@
-type combo =
+type t =
   | Empty
   | Single of Card.t
   | Pair of Card.t
@@ -105,12 +105,18 @@ let make_combo c =
 
 let valid_play c1 c2 =
   match (c1, c2) with
-  | Single a, Single b -> compare a b > 0
-  | Pair a, Pair b -> compare a b > 0
-  | Triple a, Triple b -> compare a b > 0
-  | Quads a, Quads b -> compare a b > 0
+  | Single a, Single b -> compare b a > 0
+  | Single _, _ -> false
+  | Pair a, Pair b -> compare b a > 0
+  | Pair _, _ -> false
+  | Triple a, Triple b -> compare b a > 0
+  | Triple _, _ -> false
+  | Quads a, Quads b -> compare b a > 0
+  | Quads _, _ -> false
   | Straight (a, b), Straight (c, d) ->
-      if b <> d then false else compare a c > 0
+      if b <> d then false else compare c a > 0
+  | Straight _, _ -> false
   | DoubleStraight (a, b), DoubleStraight (c, d) ->
-      if b <> d then false else compare a c > 0
-  | _ -> false
+      if b <> d then false else compare c a > 0
+  | DoubleStraight _, _ -> false
+  | Empty, _ -> true

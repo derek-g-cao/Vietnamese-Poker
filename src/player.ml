@@ -17,11 +17,12 @@ let player_hand player = player.hand
 let in_round player = player.opted_in
 let has_won player = player.out_of_cards
 let make_player lst a b = { hand = lst; opted_in = a; out_of_cards = b }
+let pass p = { hand = p.hand; opted_in = false; out_of_cards = p.out_of_cards }
 
 let rec show_hand_helper (lst : Card.t list) : string =
   match lst with
   | [ h ] -> Card.card_string h
-  | h :: t -> Card.card_string h ^ " ," ^ show_hand_helper t
+  | h :: t -> Card.card_string h ^ ", " ^ show_hand_helper t
   | [] -> "empty"
 
 let show_hand lst = show_hand_helper lst
