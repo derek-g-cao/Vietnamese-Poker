@@ -31,3 +31,6 @@ val valid_play : t -> t -> bool
 (** [valid_play c1 c2] takes combo [c2] that the player is attempting to play
     and returns a boolean value true if it is a valid play considering combo
     [c1] is currently on the board *)
+
+val to_string : t -> string
+(** [to_string c] takes in combo [c] and converts it to a string *)

@@ -5,7 +5,7 @@ val current_combo : t -> Rules.t
 (** [current_combo s] takes in a game state [s] and gives the combination on the
     board *)
 
-val played_by : t -> Player.player option
+val played_by : t -> int option
 (** [played_by s] takes in a game state [s] and gives the player that last
     played something *)
 
@@ -16,6 +16,14 @@ val current_player : t -> int
 val change_player : t -> t
 (** [next_turn s] takes in game state [s] and changes the turn to the next
     player *)
+
+val change_last_played : int -> t -> t
+(** [change_last_played p s] takes in game state [s] and changes the last person
+    that played a combo to be player [i] *)
+
+val change_round : t -> t
+(** [change_round s] takes in a game state [s] and determines if a new round
+    should be starting i.e. current_player = last_played *)
 
 val change_combo : t -> Rules.t -> t
 (** [change_combo s c] takes in game state [s] and combo [c] and changes the

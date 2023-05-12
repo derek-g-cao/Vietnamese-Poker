@@ -34,7 +34,10 @@ let rec play_game state =
                     a
                 in
                 (State.players state).(State.current_player state) <- h;
-                play_game (State.change_combo state c |> State.change_player))
+                play_game
+                  (State.change_combo state c
+                  |> State.change_last_played (State.current_player state)
+                  |> State.change_player))
               else
                 print_endline
                   "You are trying to play a combination that would be invalid \
@@ -46,7 +49,7 @@ let rec play_game state =
         | Pass ->
             (State.players state).(State.current_player state) <-
               Player.pass (State.players state).(State.current_player state);
-            play_game (State.change_player state)
+            play_game (State.change_player state |> State.change_round)
         | Show ->
             print_endline
               ("your hand is "
@@ -56,6 +59,11 @@ let rec play_game state =
             play_game state
         | Count ->
             count_number (State.players state);
+            play_game state
+        | Combo ->
+            print_endline
+              ("Current card combination on the board is: "
+              ^ Rules.to_string (State.current_combo state));
             play_game state
         | Quit ->
             print_endline "exiting the game. Thanks for playing nerdy nerd nerd";

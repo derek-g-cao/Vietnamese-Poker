@@ -120,3 +120,17 @@ let valid_play c1 c2 =
       if b <> d then false else compare c a > 0
   | DoubleStraight _, _ -> false
   | Empty, _ -> true
+
+let to_string c =
+  match c with
+  | Empty -> "Nothing"
+  | Single a -> "Single " ^ Card.card_string a
+  | Pair a -> "Double with higher card " ^ Card.card_string a
+  | Triple a -> "Triple with higher card " ^ Card.card_string a
+  | Quads a -> "Quads with rank " ^ Card.rank_string (Card.card_rank a)
+  | Straight (a, b) ->
+      "Straight with length " ^ string_of_int b ^ "with high card"
+      ^ Card.card_string a
+  | DoubleStraight (a, b) ->
+      "Double straight with length " ^ string_of_int b ^ "with high card "
+      ^ Card.card_string a

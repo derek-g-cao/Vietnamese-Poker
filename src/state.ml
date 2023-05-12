@@ -1,7 +1,7 @@
 type t = {
   players : Player.player array;
   current_combo : Rules.t;
-  last_played : Player.player option;
+  last_played : int option;
   current_player : int;
 }
 
@@ -19,20 +19,37 @@ let current_player s = s.current_player
 let players s = s.players
 
 let change_player s =
-  if s.current_player + 1 = Array.length s.players then
-    {
-      players = s.players;
-      current_combo = s.current_combo;
-      last_played = s.last_played;
-      current_player = 0;
-    }
-  else
-    {
-      players = s.players;
-      current_combo = s.current_combo;
-      last_played = s.last_played;
-      current_player = s.current_player + 1;
-    }
+  let x =
+    if s.current_player + 1 = Array.length s.players then 0
+    else s.current_player + 1
+  in
+  {
+    players = s.players;
+    current_combo = s.current_combo;
+    last_played = s.last_played;
+    current_player = x;
+  }
+
+let change_round s =
+  match s.last_played with
+  | None -> s
+  | Some p ->
+      if p = s.current_player then
+        {
+          players = s.players;
+          current_combo = Rules.Empty;
+          last_played = None;
+          current_player = s.current_player;
+        }
+      else s
+
+let change_last_played p s =
+  {
+    players = s.players;
+    current_combo = s.current_combo;
+    last_played = Some p;
+    current_player = s.current_player;
+  }
 
 let change_combo s c =
   {

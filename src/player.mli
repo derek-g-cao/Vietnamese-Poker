@@ -8,6 +8,7 @@ type move =
   | Show
   | Count
   | Quit
+  | Combo
 
 exception Invalid
 (** Raised when a player move is invalid *)

@@ -12,6 +12,7 @@ type move =
   | Show
   | Count
   | Quit
+  | Combo
 
 let player_hand player = player.hand
 let in_round player = player.opted_in
@@ -44,6 +45,7 @@ let rec command_type player_input =
       else if h = "show" then Show
       else if h = "count" then Count
       else if h = "quit" then Quit
+      else if h = "combo" then Combo
       else raise Invalid
 
 let check_valid move =
@@ -52,6 +54,7 @@ let check_valid move =
   | Show -> Show
   | Count -> Count
   | Quit -> Quit
+  | Combo -> Combo
   | Play s -> (
       match s with
       | [] -> raise Invalid
