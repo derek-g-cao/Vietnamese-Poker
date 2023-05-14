@@ -25,6 +25,12 @@ val has_won : player -> bool
     played all their cards *)
 
 val pass : player -> player
+(** [pass p] takes in player [p] and opts them out of the round because they
+    passed *)
+
+val return_to_round : player -> player
+(** [return_to_round p] takes in player [p] and opts them back in because a new
+    round started *)
 
 val make_player : Card.t list -> bool -> bool -> player
 (** [make_player lst a b] takes in cards [lst] and booleans [a] and [b] to
@@ -42,3 +48,7 @@ val remove_cards : player -> Card.t list -> player
 (** [remove_cards p c] takes the player [p] and removes the cards in the list
     [c], indicating that those cards have been played and are no longer in the
     player's hand *)
+
+val contain_cards : player -> Card.t list -> bool
+(** [contain_cards p c] takes in player [p] and returns true if their hand
+    contains cards [c] and false otherwise *)

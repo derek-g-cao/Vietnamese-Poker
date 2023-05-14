@@ -30,13 +30,19 @@ let change_player s =
     current_player = x;
   }
 
+let restart_round p =
+  for i = 0 to Array.length p - 1 do
+    p.(i) <- Player.return_to_round p.(i)
+  done;
+  p
+
 let change_round s =
   match s.last_played with
   | None -> s
   | Some p ->
       if p = s.current_player then
         {
-          players = s.players;
+          players = restart_round s.players;
           current_combo = Rules.Empty;
           last_played = None;
           current_player = s.current_player;

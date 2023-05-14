@@ -16,9 +16,12 @@ type move =
 
 let player_hand player = player.hand
 let in_round player = player.opted_in
-let has_won player = player.out_of_cards
+let has_won player = if List.length player.hand = 0 then true else false
 let make_player lst a b = { hand = lst; opted_in = a; out_of_cards = b }
 let pass p = { hand = p.hand; opted_in = false; out_of_cards = p.out_of_cards }
+
+let return_to_round p =
+  { hand = p.hand; opted_in = true; out_of_cards = p.out_of_cards }
 
 let rec show_hand_helper (lst : Card.t list) : string =
   match lst with
@@ -69,7 +72,10 @@ let rec remove hand card =
 
 let rec remove_cards p c =
   match c with
-  | [] -> p
+  | [] ->
+      if has_won p then
+        { hand = p.hand; opted_in = p.opted_in; out_of_cards = true }
+      else { hand = p.hand; opted_in = p.opted_in; out_of_cards = false }
   | h :: t ->
       remove_cards
         {
@@ -78,3 +84,10 @@ let rec remove_cards p c =
           out_of_cards = p.out_of_cards;
         }
         t
+
+let rec contain_cards_helper hand c =
+  match c with
+  | [] -> true
+  | h :: t -> if List.mem h hand then contain_cards_helper hand t else false
+
+let contain_cards p c = contain_cards_helper p.hand c

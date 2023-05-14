@@ -83,6 +83,23 @@ let rec check_straight c acc =
         check_straight (s :: t) (acc + 1)
       else None
 
+let rec check_double_straight c acc =
+  match c with
+  | [] -> failwith "pattern matching"
+  | [ a; b ] -> (
+      try
+        match check_pair [ a; b ] with
+        | Pair c -> Some (DoubleStraight (c, acc + 1))
+        | _ -> None
+      with InvalidCombo -> None)
+  | f :: s :: t -> (
+      try
+        match check_pair [ f; s ] with
+        | Pair _ -> check_double_straight t (acc + 1)
+        | _ -> None
+      with InvalidCombo -> None)
+  | [ _ ] -> None
+
 let make_combo c =
   let l = List.length c in
   if l = 1 then Single (List.nth c 0)
@@ -101,7 +118,13 @@ let make_combo c =
         | None -> raise InvalidCombo
         | Some s -> s)
     | Some s -> s
-  else raise InvalidCombo
+  else
+    match check_double_straight c 0 with
+    | None -> (
+        match check_straight c 0 with
+        | None -> raise InvalidCombo
+        | Some s -> s)
+    | Some s -> s
 
 let valid_play c1 c2 =
   match (c1, c2) with
@@ -129,8 +152,8 @@ let to_string c =
   | Triple a -> "Triple with higher card " ^ Card.card_string a
   | Quads a -> "Quads with rank " ^ Card.rank_string (Card.card_rank a)
   | Straight (a, b) ->
-      "Straight with length " ^ string_of_int b ^ "with high card"
+      "Straight with length " ^ string_of_int b ^ " with high card "
       ^ Card.card_string a
   | DoubleStraight (a, b) ->
-      "Double straight with length " ^ string_of_int b ^ "with high card "
+      "Double straight with length " ^ string_of_int b ^ " with high card "
       ^ Card.card_string a

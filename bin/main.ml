@@ -24,53 +24,74 @@ let rec play_game state =
   | s -> (
       try
         match Player.parse_move s with
-        | Play a -> (
-            try
-              let c = Rules.make_combo a in
-              if Rules.valid_play (State.current_combo state) c then (
-                let h =
-                  Player.remove_cards
-                    (State.players state).(State.current_player state)
-                    a
-                in
-                (State.players state).(State.current_player state) <- h;
-                play_game
-                  (State.change_combo state c
-                  |> State.change_last_played (State.current_player state)
-                  |> State.change_player))
-              else
-                print_endline
-                  "You are trying to play a combination that would be invalid \
-                   on this board";
-              play_game state
-            with Rules.InvalidCombo ->
-              print_endline "Invalid combo";
-              play_game state)
-        | Pass ->
-            (State.players state).(State.current_player state) <-
-              Player.pass (State.players state).(State.current_player state);
-            play_game (State.change_player state |> State.change_round)
-        | Show ->
-            print_endline
-              ("your hand is "
-              ^ show_hand
-                  (player_hand
-                     (State.players state).(State.current_player state)));
-            play_game state
-        | Count ->
-            count_number (State.players state);
-            play_game state
-        | Combo ->
-            print_endline
-              ("Current card combination on the board is: "
-              ^ Rules.to_string (State.current_combo state));
-            play_game state
+        | Play a -> play_helper a state
+        | Pass -> pass_helper state
+        | Show -> show_helper state
+        | Count -> count_helper state
+        | Combo -> combo_helper state
         | Quit ->
             print_endline "exiting the game. Thanks for playing nerdy nerd nerd";
             Stdlib.exit 0
       with Invalid ->
         print_endline "That command was invalid";
         play_game state)
+
+and play_helper a state =
+  if Player.in_round (State.players state).(State.current_player state) then (
+    if Player.contain_cards (State.players state).(State.current_player state) a
+    then (
+      try
+        let c = Rules.make_combo a in
+        if Rules.valid_play (State.current_combo state) c then (
+          let h =
+            Player.remove_cards
+              (State.players state).(State.current_player state)
+              a
+          in
+          (State.players state).(State.current_player state) <- h;
+          if Player.has_won (State.players state).(State.current_player state)
+          then (
+            print_endline "Game is over. Thanks for playing!";
+            Stdlib.exit 0)
+          else
+            play_game
+              (State.change_combo state c
+              |> State.change_last_played (State.current_player state)
+              |> State.change_player))
+        else
+          print_endline
+            "You are trying to play a combination that would be invalid on \
+             this board";
+        play_game state
+      with Rules.InvalidCombo ->
+        print_endline "Invalid combo";
+        play_game state)
+    else print_endline "Your hand does not contain these cards!";
+    play_game state)
+  else print_endline "You are not in the current round of play!";
+  play_game state
+
+and pass_helper state =
+  (State.players state).(State.current_player state) <-
+    Player.pass (State.players state).(State.current_player state);
+  play_game (State.change_player state |> State.change_round)
+
+and show_helper state =
+  print_endline
+    ("your hand is "
+    ^ show_hand (player_hand (State.players state).(State.current_player state))
+    );
+  play_game state
+
+and count_helper state =
+  count_number (State.players state);
+  play_game state
+
+and combo_helper state =
+  print_endline
+    ("Current card combination on the board is: "
+    ^ Rules.to_string (State.current_combo state));
+  play_game state
 
 let start_game_helper (n : int) (deck : Deck.deck) : State.t =
   let x = Array.make n (Player.make_player [] false false) in
