@@ -21,7 +21,7 @@ git-repo: "https://github.coecis.cornell.edu/dgc68/cs3110-final-project"
 demo-video-url: ""
 # Write a short, attention-grabbing description of your project.
 desc: >
-  Our peoject lets people play Vietnamese poker. 4 players will be able to play
+  Our project lets people play Vietnamese poker. 4 players will be able to play
   Vietnamese poker across multiple computers, letting them keep their own hands 
   hidden. The interface allows players to see only a limited number of cards 
   that were played last at a time. Players will be able to see only their own 
