@@ -143,7 +143,8 @@ let h=Player.remove_cards g (hremoved)
 let non_original_cards= [create_card Seven Hearts;
 create_card Eight Clubs; create_card Nine Diamonds;
 create_card Four Clubs]
-let player_tests =[opted_test  "default opted in" a true;
+let player_tests =[
+opted_test  "default opted in" a true;
 won_test "a not won" a false;
 opted_test " b not opted in" (b) false;
 won_test "b not won" b false;
@@ -180,9 +181,48 @@ contain_cards_test "e cards" g hremoved true;
 won_test "h has won" h true;
 contain_cards_test "e cards" h hremoved false;
 ] 
+let highstraight5 = Rules.make_combo [Card.create_card Nine Spade;
+Card.create_card Ten Spade;
+Card.create_card Jack Spade;
+Card.create_card Queen Spade;
+Card.create_card King Spade;]
+
+let lowstraight5 = Rules.make_combo [Card.create_card Eight Spade;
+Card.create_card Nine Spade;
+Card.create_card Ten Spade;
+Card.create_card Jack Spade;
+Card.create_card Queen Spade;]
+
+let straight4 = Rules.make_combo [Card.create_card Nine Spade;
+Card.create_card Ten Spade;
+Card.create_card Jack Spade;
+Card.create_card Queen Spade]
+let double = Rules.make_combo [
+  Card.create_card Nine Spade;
+Card.create_card Nine Clubs;
+]
+let single= Rules.make_combo [Card.create_card Nine Spade]
+
+let valid_play_test name prevc nextc output=
+name >:: fun _->
+  assert_equal output (Rules.valid_play prevc nextc)
+  let rules_tests=[
+    valid_play_test "single on double" double single false;
+    valid_play_test "double on single" single double false;
+    valid_play_test "double on straight5" lowstraight5 double false;
+    valid_play_test "straight4 on straight4" straight4 straight4 false;
+    valid_play_test "straight4 on highstraight5"  highstraight5 straight4 false;
+    valid_play_test "highstraight5 on lowstraight5" lowstraight5 highstraight5 true;
+    valid_play_test "straight4 on singles" single straight4 false;
+  
+
+
+]
 let state_tests =
-  []
+  [
+
+  ]
 let suite =
-  "test suite for viet poker" >::: List.flatten [ card_tests; deck_tests;player_tests ; state_tests ]
+  "test suite for viet poker" >::: List.flatten [ card_tests; deck_tests;player_tests ; state_tests;rules_tests ]
 
 let _ =run_test_tt_main suite
