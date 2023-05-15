@@ -100,7 +100,8 @@ let rec check_double_straight c acc =
       with InvalidCombo -> None)
   | [ _ ] -> None
 
-let make_combo c =
+let make_combo cards =
+  let c = List.sort compare cards in
   let l = List.length c in
   if l = 1 then Single (List.nth c 0)
   else if l = 2 then check_pair c

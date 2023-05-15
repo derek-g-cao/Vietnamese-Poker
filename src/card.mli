@@ -1,3 +1,11 @@
+(** Representation of cards.
+
+    This module represents the data for cards in the game, including suit and
+    rank. It handles creating cards of certain suits and ranks, and also
+    converting the card data into things that can be used outside this module. *)
+
+(**********************************************************************)
+
 type t
 (** The abstract type of values representing cards. *)
 

@@ -1,3 +1,11 @@
+(** Representation of the state of a game.
+
+    This module stores information about the state of the game. It keeps track
+    of the players in the game and the order that they should be able to play
+    cards, as well as the current combination that players need to beat. *)
+
+(**********************************************************************)
+
 type t
 (** Represents the current state of a game *)
 

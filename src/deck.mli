@@ -1,3 +1,11 @@
+(** Representation of a deck of cards.
+
+    This module represents a deck of cards that can be used for a game. It
+    includes the logic for shuffling cards, as well as making decks with certain
+    cards in them. It also handles evenly dealing cards. *)
+
+(**********************************************************************)
+
 type deck
 (** The type representing a deck of cards *)
 

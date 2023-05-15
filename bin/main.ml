@@ -30,7 +30,7 @@ let rec play_game state =
         | Count -> count_helper state
         | Combo -> combo_helper state
         | Quit ->
-            print_endline "exiting the game. Thanks for playing nerdy nerd nerd";
+            print_endline "Exiting the game. \nThanks for playing!";
             Stdlib.exit 0
       with Invalid ->
         print_endline "That command was invalid";

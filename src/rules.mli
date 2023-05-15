@@ -1,3 +1,13 @@
+(** Representation of the rules of the game.
+
+    This modules represents the rules of the game that is being played. It has
+    the ability to take in cards and tell if they're a valid combination of
+    cards for the game. It is also able to compare card combinations and
+    determine if it is valid to play one after another one has already been
+    played. *)
+
+(**********************************************************************)
+
 type t =
   | Empty
   | Single of Card.t
@@ -8,6 +18,7 @@ type t =
   | DoubleStraight of Card.t * int
 
 exception InvalidCombo
+(** Raise when a list of cards doesn't for a valid combo *)
 
 val rank_order : Card.rank -> int
 (** [rank_order r] gives an int value corresponding to a rank's strength in the

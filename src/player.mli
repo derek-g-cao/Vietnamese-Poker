@@ -1,3 +1,11 @@
+(** Representation of a player playing the game.
+
+    This module represents the players, including their current hand and whether
+    or not they have passed the current round. It handles the logic for player
+    hands, as well as bringing them in and out of rounds. *)
+
+(**********************************************************************)
+
 type player
 (** The type representing a player in a game *)
 
