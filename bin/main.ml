@@ -54,6 +54,8 @@ and play_helper a state =
             print_endline "Game is over. Thanks for playing!";
             Stdlib.exit 0)
           else
+            print_endline("\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n
+            \n \n \n \n \n \n \n" ^"The last play was "^ Rules.to_string (c));
             play_game
               (State.change_combo state c
               |> State.change_last_played (State.current_player state)
@@ -74,6 +76,8 @@ and play_helper a state =
 and pass_helper state =
   (State.players state).(State.current_player state) <-
     Player.pass (State.players state).(State.current_player state);
+    print_endline("\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n
+            \n \n \n \n \n \n \n" ^"The last play was "^ Rules.to_string (State.current_combo state));
   play_game (State.change_player state |> State.change_round)
 
 and show_helper state =
